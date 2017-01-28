@@ -61,7 +61,7 @@
 
   - name: nagios configs validation
     shell: >
-        {{home.nagios}}/bin/nagios -v {{home.nagios}}/etc/nagios.cfg 2>&1 > /dev/null
+        {{home.nagios}}/bin/nagios -v {{home.nagios}}/nagios.cfg 2>&1 > /dev/null
     ignore_errors: yes
     register: check_result
     sudo: yes
@@ -72,5 +72,5 @@
     sudo: yes
 
   - name: create user for Nagios UI
-    htpasswd: path={{home.nagios}}/etc/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
+    htpasswd: path={{home.nagios}}/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
     sudo: yes

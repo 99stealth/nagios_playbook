@@ -19,4 +19,4 @@
     unarchive_dest: "/tmp"
 
   home:
-    nagios: "/usr/local/nagios"
+    nagios: "/etc/nagios"

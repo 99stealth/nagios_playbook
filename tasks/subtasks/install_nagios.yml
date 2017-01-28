@@ -1,0 +1,76 @@
+---
+  - name: download nagios sources
+    get_url: url={{item}} dest={{dir.download_dest}}
+    with_items:
+    - "{{link.nagios}}"
+    - "{{link.nagios_plugins}}"
+    sudo: yes
+
+  - name: unarchive downloaded nagios sources
+    unarchive: src={{dir.download_dest}}/{{item}}.tar.gz dest={{dir.unarchive_dest}} copy=no owner=nagios group=nagios
+    with_items:
+    - nagios-{{version.nagios}}
+    - nagios-plugins-{{version.nagios_plugins}}
+    sudo: yes
+
+  - name: check nagios installed
+    stat: path={{home.nagios}}/bin/nagios
+    register: nagios_installed
+    sudo: yes
+
+  - name: install nagios
+    shell: >
+      chdir={{dir.unarchive_dest}}/nagios-{{version.nagios}}
+      {{item}}
+    with_items:
+    - ./configure --with-command-group=nagcmd
+    - make all
+    - make install
+    - make install-init
+    - make install-config
+    - make install-commandmode
+    - make install-webconf
+    when: nagios_installed.stat.exists == False
+    sudo: yes
+
+  - name: check nagios plugins installed
+    stat: path={{home.nagios}}/libexec/check_ssh
+    register: plugins_installed
+    sudo: yes
+
+  - name: install nagios plugins
+    shell: >
+      chdir={{dir.unarchive_dest}}/nagios-plugins-{{version.nagios_plugins}}
+      {{item}}
+    with_items:
+    - ./configure --with-nagios-user=nagios --with-nagios-group=nagios --sysconfdir=/etc/nagios --localstatedir=/var/nagios
+    - make
+    - make install
+    when: plugins_installed.stat.exists == False
+    sudo: yes
+
+  - name: check eventhandlers dir exists
+    stat: path={{home.nagios}}/libexec/eventhandlers
+    register: eventhandlers_installed
+    sudo: yes
+
+  - name: copy eventhandlers to nagios dir
+    shell: cp -R {{dir.unarchive_dest}}/nagios-{{version.nagios}}/contrib/eventhandlers/ {{home.nagios}}/libexec/
+    when: eventhandlers_installed.stat.exists == False
+    sudo: yes
+
+  - name: nagios configs validation
+    shell: >
+        {{home.nagios}}/bin/nagios -v {{home.nagios}}/etc/nagios.cfg 2>&1 > /dev/null
+    ignore_errors: yes
+    register: check_result
+    sudo: yes
+
+  - name: validation errors detection
+    fail: msg="Something wrong with nagios configs!"
+    when: check_result.rc != 0
+    sudo: yes
+
+  - name: create user for Nagios UI
+    htpasswd: path={{home.nagios}}/etc/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
+    sudo: yes

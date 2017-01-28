@@ -1,0 +1,17 @@
+---
+  - name: create groups
+    group: name={{ item.name }} gid={{ item.id }} state=present
+    with_items: "{{Groups}}"
+    sudo: yes
+
+  - name: create user nagios
+    user: name=nagios comment="Nagios admin" home={{home.nagios}} move_home=yes groups="{{Groups[0].name}},{{Groups[1].name}}" shell=/bin/bash uid={{Groups[0].id}}
+    sudo: yes
+
+  - name: improve nagios dir ownergroup
+    file: path={{home.nagios}} group={{Groups[0].name}} mode=0750
+    sudo: yes
+
+  - name: take permissions for apache
+    user: name=apache groups={{Groups[0].name}},{{Groups[1].name}}
+    sudo: yes

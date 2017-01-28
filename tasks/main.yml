@@ -1,0 +1,13 @@
+# Nagios Server
+---
+
+  - hosts: nagios
+    vars_files:
+    - "../vars/main.yml"
+
+    tasks:
+    - include: subtasks/install_packages.yml
+    - include: subtasks/add_users.yml
+    - include: subtasks/install_nagios.yml
+    - include: subtasks/postinstall.yml
+    - include: subtasks/clear_garbage.yml

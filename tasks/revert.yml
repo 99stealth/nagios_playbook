@@ -1,0 +1,11 @@
+# Nagios Server
+---
+
+  - hosts: nagios
+    tasks:
+
+    - name: delete group nagios
+      group: name=nagios state=absent
+
+    - name: delete group nagcmd
+      group: name=nagcmd state=absent

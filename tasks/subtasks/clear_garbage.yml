@@ -1,0 +1,33 @@
+# Clear garbage
+---
+    - name: search nagios installation archive
+      stat: path={{dir.download_dest}}/nagios-{{version.nagios}}.tar.gz
+      register: result
+
+    - name: remove nagios installation archive
+      shell: 'rm -f {{dir.download_dest}}/nagios-{{version.nagios}}.tar.gz'
+      when: result.stat.exists == True
+
+    - name: search nagios-plugins installation archive
+      stat: path={{dir.download_dest}}/nagios-plugins-{{version.nagios_plugins}}.tar.gz
+      register: result
+
+    - name: remove nagios-plugins installation archive
+      shell: 'rm -f {{dir.download_dest}}/nagios-plugins-{{version.nagios_plugins}}.tar.gz'
+      when: result.stat.exists == True
+
+    - name: search nagios unarchived nagios directory
+      stat: path={{dir.download_dest}}/nagios-{{version.nagios}}
+      register: result
+
+    - name: remove nagios unarchived nagios directory
+      shell: 'rm -rf {{dir.download_dest}}/nagios-{{version.nagios}}'
+      when: result.stat.exists == True
+
+    - name: search nagios-plugins unarchived nagios directory
+      stat: path={{dir.download_dest}}/nagios-plugins-{{version.nagios_plugins}}
+      register: result
+
+    - name: remove nagios-plugins unarchived nagios directory
+      shell: 'rm -rf {{dir.download_dest}}/nagios-plugins-{{version.nagios_plugins}}'
+      when: result.stat.exists == True

@@ -1,0 +1,22 @@
+---
+  version:
+    nagios: "4.0.4"
+    nagios_plugins: "2.0"
+
+  link:
+    nagios: "http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-{{version.nagios}}.tar.gz"
+    nagios_plugins: "http://nagios-plugins.org/download/nagios-plugins-{{version.nagios_plugins}}.tar.gz"
+
+  #### "groups" is keyword in ansible, so lets use "Groups"
+  Groups:
+  - name: "nagios"
+    id: "9000"
+  - name: "nagcmd"
+    id: "9001"
+
+  dir:
+    download_dest: "/tmp"
+    unarchive_dest: "/tmp"
+
+  home:
+    nagios: "/usr/local/nagios"

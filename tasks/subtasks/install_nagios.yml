@@ -43,7 +43,7 @@
       chdir={{dir.unarchive_dest}}/nagios-plugins-{{version.nagios_plugins}}
       {{item}}
     with_items:
-    - ./configure --with-nagios-user=nagios --with-nagios-group=nagios --sysconfdir=/etc/nagios --localstatedir=/var/nagios
+    - ./configure --with-nagios-user=nagios --with-nagios-group=nagios --sysconfdir=/etc/nagios --localstatedir=/var/nagios --prefix=/etc/nagios
     - make
     - make install
     when: plugins_installed.stat.exists == False

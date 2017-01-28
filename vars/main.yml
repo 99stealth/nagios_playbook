@@ -23,3 +23,6 @@
 
   home:
     nagios: "/etc/nagios"
+
+  localstate:
+    nagios: "/var/nagios"

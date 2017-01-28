@@ -1,6 +1,6 @@
 ---
   - name: add rules to SELinux
-    shell: chcon -R -t httpd_sys_content_t {{home.nagios}} && chcon -R -t httpd_sys_script_rw_t {{home.nagios}}/var/rw
+    shell: chcon -R -t httpd_sys_content_t {{localstate.nagios}} && chcon -R -t httpd_sys_script_rw_t {{localstate.nagios}}/rw
     sudo: yes
 
   - name: start nagios

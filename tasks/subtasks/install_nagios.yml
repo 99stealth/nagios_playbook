@@ -23,7 +23,7 @@
       chdir={{dir.unarchive_dest}}/nagios-{{version.nagios}}
       {{item}}
     with_items:
-    - ./configure --with-command-group={{Groups[1].name}} --with-nagios-user={{nagios_user.name}} --with-nagios-group={{Groups[0].name}} --sysconfdir={{home.nagios}} --localstatedir={{home.nagios}} --prefix={{home.nagios}}
+    - ./configure --with-command-group={{Groups[1].name}} --with-nagios-user={{nagios_user.name}} --with-nagios-group={{Groups[0].name}} --sysconfdir={{home.nagios}} --localstatedir={{localstate.nagios}} --prefix={{home.nagios}}
     - make all
     - make install
     - make install-init

@@ -23,7 +23,7 @@
       chdir={{dir.unarchive_dest}}/nagios-{{version.nagios}}
       {{item}}
     with_items:
-    - ./configure --with-command-group=nagcmd
+    - ./configure --with-command-group=nagcmd --with-nagios-user=nagios --with-nagios-group=nagios --sysconfigdir=/etc/nagios --localstatedir=/var/nagios --prefix=/etc/nagios
     - make all
     - make install
     - make install-init

@@ -14,6 +14,9 @@
   - name: "nagcmd"
     id: "9001"
 
+  nagios_user:
+    name: "nagios"
+
   dir:
     download_dest: "/tmp"
     unarchive_dest: "/tmp"

@@ -4,7 +4,7 @@
 This playbook helps automatically install **Nagios Core** monitoring system
 
 ### Before you start
-![](https://img.clipartfox.com/c762c6ab68fd80920b2be82288cc7e05_warning-clip-art-clipart-warning_900-800.png =18x)
+![](https://cdn1.iconfinder.com/data/icons/hawcons/32/700231-icon-61-warning-128.png)
 Install package `libselinux-python`, for CentOS run
 ```
 yum install libselinux-python

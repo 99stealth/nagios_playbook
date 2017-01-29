@@ -61,7 +61,7 @@
 
   - name: nagios configs validation
     shell: >
-        {{dir.home}}/bin/nagios -v {{dir.conf}}/nagios.cfg 2>&1 > /dev/null
+        {{dir.conf}}/bin/nagios -v {{dir.home}}/nagios.cfg 2>&1 > /dev/null
     ignore_errors: yes
     register: check_result
     sudo: yes

@@ -33,6 +33,14 @@
     when: nagios_installed.stat.exists == False
     sudo: yes
 
+  - name: add nagios bin to path
+    blockinfile:
+      create: yes
+      dest: /etc/profile.d/nagios.sh
+      block: |
+        export PATH=$PATH:{{dir.home}}/bin
+    sudo: yes
+
   - name: check nagios plugins installed
     stat: path={{dir.home}}/libexec/check_ssh
     register: plugins_installed

@@ -72,5 +72,5 @@
     sudo: yes
 
   - name: create user for Nagios UI
-    htpasswd: path={{dir.home}}/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
+    htpasswd: path={{dir.conf}}/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
     sudo: yes

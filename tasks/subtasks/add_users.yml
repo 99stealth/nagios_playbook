@@ -9,7 +9,7 @@
     sudo: yes
 
   - name: improve nagios dir ownergroup
-    file: path={{home.nagios}} group={{Groups[0].name}} mode=0750
+    file: path={{dir.home}} group={{Groups[0].name}} mode=0750
     sudo: yes
 
   - name: take permissions for apache

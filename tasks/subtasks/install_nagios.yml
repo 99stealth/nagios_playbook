@@ -14,7 +14,7 @@
     sudo: yes
 
   - name: check nagios installed
-    stat: path={{home.nagios}}/bin/nagios
+    stat: path={{dir.home}}/bin/nagios
     register: nagios_installed
     sudo: yes
 
@@ -50,7 +50,7 @@
     sudo: yes
 
   - name: check eventhandlers dir exists
-    stat: path={{home.nagios}}/libexec/eventhandlers
+    stat: path={{dir.home}}/libexec/eventhandlers
     register: eventhandlers_installed
     sudo: yes
 

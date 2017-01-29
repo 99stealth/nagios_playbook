@@ -5,7 +5,7 @@
     sudo: yes
 
   - name: create user nagios
-    user: name=nagios comment="Nagios admin" home={{home.nagios}} move_home=yes groups="{{Groups[0].name}},{{Groups[1].name}}" shell=/bin/bash uid={{Groups[0].id}}
+    user: name=nagios comment="Nagios admin" home={{dir.home}} move_home=yes groups="{{Groups[0].name}},{{Groups[1].name}}" shell=/bin/bash uid={{Groups[0].id}}
     sudo: yes
 
   - name: improve nagios dir ownergroup

@@ -23,6 +23,7 @@
     - make
     - net-snmp
     - python-pip
+    - libselinux-python
     sudo: yes
 
 

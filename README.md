@@ -1,6 +1,14 @@
 ![alt tag](http://www.telnetport25.com/wp-content/uploads/2012/03/NagiosLogo.png)
 
+
 This playbook helps automatically install **Nagios Core** monitoring system
+
+### Before you start
+![alt text](https://img.clipartfox.com/c762c6ab68fd80920b2be82288cc7e05_warning-clip-art-clipart-warning_900-800.png =18x9)
+Install package `libselinux-python`, for CentOS run
+```
+yum install libselinux-python
+```
 
 ### Apply playbook to Ansible
 * Add hosts to `/etc/ansible/hosts` for example:

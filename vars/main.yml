@@ -20,9 +20,6 @@
   dir:
     download_dest: "/tmp"
     unarchive_dest: "/tmp"
-
-  home:
-    nagios: "/etc/nagios"
-
-  localstate:
-    nagios: "/var/nagios"
+    home: "/usr/local/nagios"
+    conf: "/etc/nagios"
+    var_data: "/var/nagios"

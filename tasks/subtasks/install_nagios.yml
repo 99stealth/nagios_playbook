@@ -23,7 +23,7 @@
       chdir={{dir.unarchive_dest}}/nagios-{{version.nagios}}
       {{item}}
     with_items:
-    - ./configure --with-command-group={{Groups[1].name}} --with-nagios-user={{nagios_user.name}} --with-nagios-group={{Groups[0].name}} --sysconfdir=/usr/local --localstatedir={{localstate.nagios}} --prefix={{home.nagios}}
+    - ./configure --with-command-group={{Groups[1].name}} --with-nagios-user={{nagios_user.name}} --with-nagios-group={{Groups[0].name}} --sysconfdir={{dir.home}} --localstatedir={{dir.var_data}} --prefix={{dir.conf}}
     - make all
     - make install
     - make install-init
@@ -34,7 +34,7 @@
     sudo: yes
 
   - name: check nagios plugins installed
-    stat: path={{home.nagios}}/libexec/check_ssh
+    stat: path={{dir.home}}/libexec/check_ssh
     register: plugins_installed
     sudo: yes
 
@@ -55,13 +55,13 @@
     sudo: yes
 
   - name: copy eventhandlers to nagios dir
-    shell: cp -R {{dir.unarchive_dest}}/nagios-{{version.nagios}}/contrib/eventhandlers/ {{home.nagios}}/libexec/
+    shell: cp -R {{dir.unarchive_dest}}/nagios-{{version.nagios}}/contrib/eventhandlers/ {{dir.home}}/libexec/
     when: eventhandlers_installed.stat.exists == False
     sudo: yes
 
   - name: nagios configs validation
     shell: >
-        {{home.nagios}}/bin/nagios -v {{home.nagios}}/nagios.cfg 2>&1 > /dev/null
+        {{dir.home}}/bin/nagios -v {{dir.conf}}/nagios.cfg 2>&1 > /dev/null
     ignore_errors: yes
     register: check_result
     sudo: yes
@@ -72,5 +72,5 @@
     sudo: yes
 
   - name: create user for Nagios UI
-    htpasswd: path={{home.nagios}}/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
+    htpasswd: path={{dir.home}}/htpasswd.users name=nagiosadmin password=nagiosadmin mode=644
     sudo: yes

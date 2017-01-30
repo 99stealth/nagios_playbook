@@ -38,7 +38,7 @@
       create: yes
       dest: /etc/profile.d/nagios.sh
       block: |
-        export PATH=$PATH:{{dir.home}}/bin
+        PATH=$PATH:{{dir.home}}/bin
     sudo: yes
 
   - name: check nagios plugins installed
